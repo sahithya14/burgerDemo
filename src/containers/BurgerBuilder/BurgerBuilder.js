@@ -5,9 +5,9 @@ import Burger from "../../components/Burger/Burger";
 class BurgerBudilder extends Component {
   state = {
     ingredients: {
-      cheese: 1,
-      salad: 1,
-      bacon: 2,
+      cheese: 2,
+      salad: 2,
+      bacon: 3,
       meat: 2
     }
   };
