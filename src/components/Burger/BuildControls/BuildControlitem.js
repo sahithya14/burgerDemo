@@ -5,7 +5,11 @@ const buildControlitem = (props) => {
     <div>
       <div className={classes.buildControlitem}>
         <div className={classes.Label}>{props.label}</div>
-        <button className={classes.Less} onClick={props.removeHandler}>
+        <button
+          className={classes.Less}
+          disabled={props.isDisabled}
+          onClick={props.removeHandler}
+        >
           Remove
         </button>
         <button className={classes.More} onClick={props.addHandler}>
