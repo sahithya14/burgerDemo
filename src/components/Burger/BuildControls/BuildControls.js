@@ -13,11 +13,11 @@ const burgerControls = (props) => {
       {controls.map((item) => {
         return (
           <BuildControlitem
-            addHandler={(type) => {
-              props.addIngrident(type);
+            addHandler={() => {
+              props.addIngrident(item.type);
             }}
-            removeHandler={(type) => {
-              props.removeIngrident(type);
+            removeHandler={() => {
+              props.removeIngrident(item.type);
             }}
             key={item.label}
             label={item.label}

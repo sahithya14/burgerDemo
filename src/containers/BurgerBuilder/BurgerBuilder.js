@@ -35,12 +35,8 @@ class BurgerBudilder extends Component {
       <Aux>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
-          addIngrident={(type) => {
-            this.addIngrdientHandler(type);
-          }}
-          removeIngrident={(type) => {
-            this.removeIngridentHandler(type);
-          }}
+          addIngrident={this.addIngrdientHandler}
+          removeIngrident={this.removeIngridentHandler}
         />
       </Aux>
     );
