@@ -67,6 +67,9 @@ class BurgerBudilder extends Component {
   cancelPurchasingHandler = () => {
     this.setState({ purchasingOrder: false });
   };
+  successPurchasingHandler = () => {
+    alert("success");
+  };
   render() {
     this.disabledInfo = { ...this.state.ingredients };
     for (var type in this.disabledInfo) {
@@ -79,7 +82,12 @@ class BurgerBudilder extends Component {
           show={this.state.purchasingOrder}
           closeModal={this.cancelPurchasingHandler}
         >
-          <OrderSummary ingredients={this.state.ingredients} />
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            totalPrice={this.state.totalBurgerPrice}
+            purchaseCancelled={this.cancelPurchasingHandler}
+            purchaseContinued={this.successPurchasingHandler}
+          />
         </Modal>
         <BuildControls
           addIngrident={this.addIngrdientHandler}
