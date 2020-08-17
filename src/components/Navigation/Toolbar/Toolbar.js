@@ -6,7 +6,14 @@ import NavigationItems from "../../Navigation/NavigationItems/NavigationItems";
 const toolbar = (props) => {
   return (
     <header className={classes.Toolbar}>
-      <div>MENU</div>
+      <div
+        className={classes.hamburgerCont}
+        onClick={props.hamburgerIconClicked}
+      >
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
       <Logo height="80%" />
       <nav className={classes.DesktopOnly}>
         <NavigationItems />

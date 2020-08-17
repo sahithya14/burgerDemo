@@ -23,3 +23,30 @@
     display: none;
   }
 }
+
+/* creating hamburger icon using styles */
+@media (min-width: 500px) {
+  .hamburgerCont {
+    display: none;
+  }
+  .hamburgerCont div {
+    display: none;
+  }
+}
+
+.hamburgerCont {
+  width: 40px;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.hamburgerCont div {
+  width: 90%;
+  height: 3px;
+  background-color: white;
+}
