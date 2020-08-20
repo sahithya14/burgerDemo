@@ -4,7 +4,9 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import axiousInstance from "../../hoc/axios-orders";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 const INGRIENDENTS_PRICE = {
   meat: 50.5,
   cheese: 20.1,
@@ -21,7 +23,8 @@ class BurgerBudilder extends Component {
     },
     totalBurgerPrice: 10.5,
     purchaseable: false,
-    purchasingOrder: false
+    purchasingOrder: false,
+    loading: false
   };
 
   updatePurchaseable = (ingredents) => {
@@ -69,6 +72,7 @@ class BurgerBudilder extends Component {
     this.setState({ purchasingOrder: false });
   };
   successPurchasingHandler = () => {
+    this.setState({ loading: true });
     var order = {
       ingredients: this.state.ingredients,
       price: this.state.totalPrice,
@@ -85,11 +89,13 @@ class BurgerBudilder extends Component {
     };
     //alert("success"); "/order.json  if we arre using fire base we have to add json in the end"
     axiousInstance
-      .post("/orders.json", order)
+      .post("/orderss", order)
       .then((response) => {
+        this.setState({ loading: false, purchasingOrder: false });
         console.log(response);
       })
       .catch((error) => {
+        this.setState({ loading: false, purchasingOrder: false });
         console.log(error);
       });
   };
@@ -97,6 +103,18 @@ class BurgerBudilder extends Component {
     this.disabledInfo = { ...this.state.ingredients };
     for (var type in this.disabledInfo) {
       this.disabledInfo[type] = this.disabledInfo[type] <= 0;
+      //{salad:true,meat:false..}
+    }
+    let orderSummary = (
+      <OrderSummary
+        ingredients={this.state.ingredients}
+        totalPrice={this.state.totalBurgerPrice}
+        purchaseCancelled={this.cancelPurchasingHandler}
+        purchaseContinued={this.successPurchasingHandler}
+      />
+    );
+    if (this.state.loading) {
+      orderSummary = <Spinner />;
     }
     return (
       <Aux>
@@ -105,12 +123,7 @@ class BurgerBudilder extends Component {
           show={this.state.purchasingOrder}
           closeModal={this.cancelPurchasingHandler}
         >
-          <OrderSummary
-            ingredients={this.state.ingredients}
-            totalPrice={this.state.totalBurgerPrice}
-            purchaseCancelled={this.cancelPurchasingHandler}
-            purchaseContinued={this.successPurchasingHandler}
-          />
+          {orderSummary}
         </Modal>
         <BuildControls
           addIngrident={this.addIngrdientHandler}
@@ -124,4 +137,4 @@ class BurgerBudilder extends Component {
     );
   }
 }
-export default BurgerBudilder;
+export default withErrorHandler(BurgerBudilder, axiousInstance);
