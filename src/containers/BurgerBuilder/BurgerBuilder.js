@@ -25,7 +25,7 @@ class BurgerBudilder extends Component {
 
   componentDidMount() {
     axiousInstance
-      .get("https://burgerdemo-reactjs.firebaseio.com/ingredients")
+      .get("https://burgerdemo-reactjs.firebaseio.com/ingredients.json")
       .then((response) => {
         this.setState({ ingredients: response.data, isIngredietsError: false });
       })
@@ -97,7 +97,7 @@ class BurgerBudilder extends Component {
     };
     //alert("success"); "/order.json  if we arre using fire base we have to add json in the end"
     axiousInstance
-      .post("/orderss", order)
+      .post("/orders.json", order)
       .then((response) => {
         this.setState({ loading: false, purchasingOrder: false });
         console.log(response);
