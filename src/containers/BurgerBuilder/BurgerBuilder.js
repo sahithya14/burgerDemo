@@ -24,6 +24,7 @@ class BurgerBudilder extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     axiousInstance
       .get("https://burgerdemo-reactjs.firebaseio.com/ingredients.json")
       .then((response) => {

@@ -10,6 +10,9 @@ class Checkout extends Component {
       bacon: 1
     }
   };
+  componentDidMount() {
+    console.log("Cheeckout" + this.props);
+  }
   render() {
     return (
       <div>
