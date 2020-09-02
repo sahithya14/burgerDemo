@@ -8,8 +8,8 @@ export default function App() {
   return (
     <div>
       <Layout>
-        <Route to="/" exact component={BurgerBudilder} />
-        <Route to="/checkout" exact component={Checkout} />
+        <Route path="/" exact component={BurgerBudilder} />
+        <Route path="/checkout" exact component={Checkout} />
       </Layout>
     </div>
   );

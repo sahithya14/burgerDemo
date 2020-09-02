@@ -81,7 +81,7 @@ class BurgerBudilder extends Component {
     this.setState({ purchasingOrder: false });
   };
   successPurchasingHandler = () => {
-    this.setState({ loading: true });
+    /* this.setState({ loading: true });
     var order = {
       ingredients: this.state.ingredients,
       price: this.state.totalPrice,
@@ -106,7 +106,8 @@ class BurgerBudilder extends Component {
       .catch((error) => {
         this.setState({ loading: false, purchasingOrder: false });
         console.log(error);
-      });
+      });*/
+    this.props.history.push("/checkout");
   };
   render() {
     this.disabledInfo = { ...this.state.ingredients };
