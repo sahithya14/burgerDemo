@@ -13,10 +13,20 @@ class Checkout extends Component {
   componentDidMount() {
     console.log("Cheeckout" + this.props);
   }
+  cancelCheckoutHandler = () => {
+    this.props.history.goBack();
+  };
+  continueCheckoutHandler = () => {
+    this.props.history.replace("/checkout/contact-data");
+  };
   render() {
     return (
       <div>
-        <CheckoutSummary ingredients={this.state.ingredients} />
+        <CheckoutSummary
+          ingredients={this.state.ingredients}
+          cancelCheckout={this.cancelCheckoutHandler}
+          continueCheckout={this.continueCheckoutHandler}
+        />
       </div>
     );
   }
