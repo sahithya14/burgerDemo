@@ -10,19 +10,27 @@ class Checkout extends Component {
       salad: 1,
       meat: 1,
       bacon: 1
-    }
+    },
+    totalPrice: 10.5,
+    loading: false
   };
   componentDidMount() {
     console.log("Checkout" + this.props);
     // to get params from url passed in burgerBuilder successPurchasingHandler method
     var ingredients = {};
     const query = new URLSearchParams(this.props.location.search);
+    var totalPrice = 0;
     for (let params of query.entries()) {
       //params-eg  ['salad','1']
-      ingredients[params[0]] = +params[1];
+      if (params[0] === "price") {
+        totalPrice = +params[1];
+      } else {
+        ingredients[params[0]] = +params[1];
+      }
     }
     this.setState({
-      ingredients: ingredients
+      ingredients: ingredients,
+      totalPrice: totalPrice
     });
   }
 
@@ -43,7 +51,12 @@ class Checkout extends Component {
         />
         <Route
           path={this.props.match.path + "/contact-data"}
-          component={ContactData}
+          render={() => (
+            <ContactData
+              ingredients={this.state.ingredients}
+              totalPrice={this.state.totalPrice}
+            />
+          )}
         />
       </div>
     );

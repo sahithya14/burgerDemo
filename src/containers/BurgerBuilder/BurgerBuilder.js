@@ -81,32 +81,6 @@ class BurgerBudilder extends Component {
     this.setState({ purchasingOrder: false });
   };
   successPurchasingHandler = () => {
-    /* this.setState({ loading: true });
-    var order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name1: "sahithya",
-        address: {
-          street: "kukatpally",
-          pinCode: "505474",
-          country: "INDIA"
-        },
-        email: "abc@gmail.com"
-      },
-      deliveryMethod: "fastest"
-    };
-    //alert("success"); "/order.json  if we arre using fire base we have to add json in the end"
-    axiousInstance
-      .post("/orders.json", order)
-      .then((response) => {
-        this.setState({ loading: false, purchasingOrder: false });
-        console.log(response);
-      })
-      .catch((error) => {
-        this.setState({ loading: false, purchasingOrder: false });
-        console.log(error);
-      });*/
     //this.props.history.push("/checkout");
     /*passing ingrediens in url on click of continue in order summary, these params are collected in checkout.js*/
     const queryParams = [];
@@ -118,6 +92,8 @@ class BurgerBudilder extends Component {
           encodeURIComponent(this.state.ingredients[i])
       );
     }
+    var price = "price=" + this.state.totalBurgerPrice.toString();
+    queryParams.push(price);
     const queryString = queryParams.join("&");
     this.props.history.push({
       pathname: "/checkout",

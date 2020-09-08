@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "../../../components/UI/Button/Button";
 import classes from "../../Checkout/ContactData/ContactData.module.css";
-
+import axiousInstance from "../../../hoc/axios-orders";
 class ContactData extends Component {
   state = {
     name: "",
@@ -10,6 +10,34 @@ class ContactData extends Component {
       street: "",
       pincode: ""
     }
+  };
+  orderHandler = () => {
+    this.setState({ loading: true });
+    var order = {
+      ingredients: this.props.ingredients,
+      price: this.props.totalPrice,
+      customer: {
+        name1: "sahithya",
+        address: {
+          street: "kukatpally",
+          pinCode: "505474",
+          country: "INDIA"
+        },
+        email: "abc@gmail.com"
+      },
+      deliveryMethod: "fastest"
+    };
+    //alert("success"); "/order.json  if we arre using fire base we have to add json in the end"
+    axiousInstance
+      .post("/orders.json", order)
+      .then((response) => {
+        this.setState({ loading: false });
+        console.log(response);
+      })
+      .catch((error) => {
+        this.setState({ loading: false });
+        console.log(error);
+      });
   };
   render() {
     return (
@@ -40,7 +68,9 @@ class ContactData extends Component {
             name="pincode"
             placeholder="Eg:505474"
           />
-          <Button btnType="Success">ORDER</Button>
+          <Button btnType="Success" clicked={this.orderHandler}>
+            ORDER
+          </Button>
         </form>
       </div>
     );
