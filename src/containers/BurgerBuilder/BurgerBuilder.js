@@ -107,7 +107,22 @@ class BurgerBudilder extends Component {
         this.setState({ loading: false, purchasingOrder: false });
         console.log(error);
       });*/
-    this.props.history.push("/checkout");
+    //this.props.history.push("/checkout");
+    /*passing ingrediens in url on click of continue in order summary, these params are collected in checkout.js*/
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      // i = bacon--> i denotes properties of object
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    const queryString = queryParams.join("&");
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString
+    });
   };
   render() {
     this.disabledInfo = { ...this.state.ingredients };

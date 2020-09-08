@@ -11,14 +11,26 @@ class Checkout extends Component {
     }
   };
   componentDidMount() {
-    console.log("Cheeckout" + this.props);
+    console.log("Checkout" + this.props);
+    // to get params from url passed in burgerBuilder successPurchasingHandler method
+    var ingredients = {};
+    const query = new URLSearchParams(this.props.location.search);
+    for (let params of query.entries()) {
+      //params-eg  ['salad','1']
+      ingredients[params[0]] = +params[1];
+    }
+    this.setState({
+      ingredients: ingredients
+    });
   }
+
   cancelCheckoutHandler = () => {
     this.props.history.goBack();
   };
   continueCheckoutHandler = () => {
     this.props.history.replace("/checkout/contact-data");
   };
+
   render() {
     return (
       <div>
