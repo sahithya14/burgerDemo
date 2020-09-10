@@ -3,18 +3,22 @@ import classes from "../Order/Order.module.css";
 
 const order = (props) => {
   var ingredients = [];
-  for (var key in props.Ingredients) {
-    var temp = (
-      <p>
-        <strong>{key}</strong>
-        {props.Ingredients[key]}
-      </p>
-    );
-    ingredients.push(temp);
+  function getIngredients() {
+    for (var key in props.ingredients) {
+      var temp = (
+        <div key={props.key}>
+          <strong>{key}:</strong>
+          {props.ingredients[key]}
+        </div>
+      );
+      ingredients.push(temp);
+    }
+    return ingredients;
   }
+
   return (
     <div className={classes.Order}>
-      {ingredients}
+      {getIngredients()}
       <p>
         Price:<strong>{props.price}</strong>
       </p>
