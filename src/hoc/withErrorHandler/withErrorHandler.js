@@ -8,8 +8,8 @@ const withErrorHandler = (WrappedComponent, axiousInstance) => {
     state = {
       error: null
     };
-    componentDidMount() {
-      axiousInstance.interceptors.request.use(
+    UNSAFE_componentWillMount() {
+      this.reqInterceptor = axiousInstance.interceptors.request.use(
         (request) => {
           this.setState({
             error: null
@@ -22,7 +22,7 @@ const withErrorHandler = (WrappedComponent, axiousInstance) => {
           });
         }
       );
-      axiousInstance.interceptors.response.use(
+      this.reqInterceptor = axiousInstance.interceptors.response.use(
         (response) => {
           return response;
         },
@@ -34,6 +34,12 @@ const withErrorHandler = (WrappedComponent, axiousInstance) => {
         }
       );
     }
+
+    componentWillUnmount() {
+      axiousInstance.interceptors.request.eject(this.reqInterceptor);
+      axiousInstance.interceptors.response.eject(this.resInterceptor);
+    }
+
     closeModal = () => {
       this.setState({
         error: null
@@ -56,3 +62,5 @@ export default withErrorHandler;
 
 //common method for handling errors using axios. pass the component and axios instance used in that particular component,
 //error message is displayed(passes to) in Modal Component
+
+/*constructor is used instead of ComponentDidMount becoz.. child components arev  rendered first then only component did mount is called */
