@@ -4,6 +4,20 @@
 }
 
 .Label {
+  width: 30%;
   margin: 10px;
   padding-right: 10px;
+  background-color: red;
+}
+.Inuput {
+  outline: none;
+  width: 70%;
+  border: 1px solid #ccc;
+  background-color: white;
+  margin: 10px 5px 5px;
+}
+.Inuput:focus {
+  outline: none;
+  background-color: #ccc;
+  margin: 10px 5px 5px;
 }

@@ -6,13 +6,66 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 class ContactData extends Component {
   state = {
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      pincode: ""
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Your name",
+          label: "Name"
+        },
+        value: ""
+      },
+      email: {
+        elementType: "input",
+        elementConfig: {
+          type: "email",
+          placeholder: "example@gmail.com",
+          label: "Email"
+        },
+        value: ""
+      },
+      street: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Street",
+          label: "Street"
+        },
+        value: ""
+      },
+      pincode: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Eg:505474",
+          label: "Pincode"
+        },
+        value: ""
+      },
+      country: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "India",
+          label: "country"
+        },
+        value: ""
+      },
+      deliveryMethod: {
+        elementType: "select",
+        elementConfig: {
+          label: "deliveryMethod",
+          options: [
+            { value: "fastest", dispalyValue: "Fastest" },
+            { value: "cheapest", dispalyValue: "Cheapest" }
+          ]
+        },
+        value: ""
+      }
     }
   };
+
   orderHandler = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
@@ -20,7 +73,7 @@ class ContactData extends Component {
       ingredients: this.props.ingredients,
       price: this.props.totalPrice,
       customer: {
-        name1: "sahithya14",
+        name: "sahithya14",
         address: {
           street: "kukatpally14",
           pinCode: "50547414",
@@ -42,41 +95,31 @@ class ContactData extends Component {
         console.log(error);
       });
   };
+
+  inputChangedHandler = (event, inputIdentifier) => {
+    console.log(event.target.value);
+  };
+
   render() {
+    var formElementsArray = [];
+    for (var key in this.state.orderForm) {
+      var temp = (
+        <Input
+          key={key}
+          elementType={this.state.orderForm[key].elementType}
+          elementConfig={this.state.orderForm[key].elementConfig}
+          label={this.state.orderForm[key].elementConfig.label}
+          value={this.state.orderForm[key].value}
+          changed={(event) => {
+            this.inputChangedHandler(event, inputIdentifier);
+          }}
+        />
+      );
+      formElementsArray.push(temp);
+    }
     var form = (
       <form>
-        <Input
-          className={classes.Inuput}
-          label="Name"
-          inputtype="input"
-          type="text"
-          name="Name"
-          placeholder="Your Name"
-        />
-        <Input
-          className={classes.Inuput}
-          inputtype="input"
-          label="email"
-          type="email"
-          name="Email"
-          placeholder="example@gmail.com"
-        />
-        <Input
-          className={classes.Inuput}
-          inputtype="input"
-          label="Street"
-          type="text"
-          name="Street"
-          placeholder="Eg:GandhiNagar"
-        />
-        <Input
-          className={classes.Inuput}
-          inputtype="input"
-          type="text"
-          label="pincode"
-          name="pincode"
-          placeholder="Eg:505474"
-        />
+        {formElementsArray}
         <Button btnType="Success" clicked={this.orderHandler}>
           ORDER
         </Button>
