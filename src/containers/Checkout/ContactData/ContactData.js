@@ -69,25 +69,21 @@ class ContactData extends Component {
   orderHandler = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
+    var formData = {};
+    for (var inputIdentifier in this.state.orderForm) {
+      formData[inputIdentifier] = this.state.orderForm[inputIdentifier].value;
+    }
     var order = {
       ingredients: this.props.ingredients,
       price: this.props.totalPrice,
-      customer: {
-        name: "sahithya14",
-        address: {
-          street: "kukatpally14",
-          pinCode: "50547414",
-          country: "INDIA143"
-        },
-        email: "abc14@gmail.com"
-      },
-      deliveryMethod: "fastest14"
+      orderData: formData
     };
     //alert("success"); "/order.json  if we arre using fire base we have to add json in the end"
     axiousInstance
       .post("/orders.json", order)
       .then((response) => {
         this.setState({ loading: false });
+        this.props.history.push("/");
         console.log(response);
       })
       .catch((error) => {
@@ -123,7 +119,7 @@ class ContactData extends Component {
               label={formElement.config.elementConfig.label}
               value={formElement.value}
               changed={(event) => {
-                this.inputChangedHandler(event, key);
+                this.inputChangedHandler(event, formElement.id);
               }}
             />
           );
