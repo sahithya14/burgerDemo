@@ -97,29 +97,37 @@ class ContactData extends Component {
   };
 
   inputChangedHandler = (event, inputIdentifier) => {
+    //inputIdentifier->name, email,etc
     console.log(event.target.value);
+    var updatedOrderForm = { ...this.state.orderForm };
+    var updatedInputElement = { ...updatedOrderForm[inputIdentifier] };
+    updatedInputElement.value = event.target.value;
+    updatedOrderForm[inputIdentifier] = updatedInputElement;
+    this.setState({ orderForm: updatedOrderForm });
   };
 
   render() {
     var formElementsArray = [];
     for (var key in this.state.orderForm) {
-      var temp = (
-        <Input
-          key={key}
-          elementType={this.state.orderForm[key].elementType}
-          elementConfig={this.state.orderForm[key].elementConfig}
-          label={this.state.orderForm[key].elementConfig.label}
-          value={this.state.orderForm[key].value}
-          changed={(event) => {
-            this.inputChangedHandler(event, inputIdentifier);
-          }}
-        />
-      );
-      formElementsArray.push(temp);
+      formElementsArray.push({ config: this.state.orderForm[key], id: key });
     }
+
     var form = (
       <form>
-        {formElementsArray}
+        {formElementsArray.map((formElement) => {
+          return (
+            <Input
+              key={formElement.id}
+              elementType={formElement.config.elementType}
+              elementConfig={formElement.config.elementConfig}
+              label={formElement.config.elementConfig.label}
+              value={formElement.value}
+              changed={(event) => {
+                this.inputChangedHandler(event, key);
+              }}
+            />
+          );
+        })}
         <Button btnType="Success" clicked={this.orderHandler}>
           ORDER
         </Button>
