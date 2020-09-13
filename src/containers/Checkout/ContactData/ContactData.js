@@ -3,7 +3,7 @@ import Button from "../../../components/UI/Button/Button";
 import classes from "../../Checkout/ContactData/ContactData.module.css";
 import axiousInstance from "../../../hoc/axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
-
+import Input from "../../../components/UI/Input/Input";
 class ContactData extends Component {
   state = {
     name: "",
@@ -45,27 +45,35 @@ class ContactData extends Component {
   render() {
     var form = (
       <form>
-        <input
+        <Input
           className={classes.Inuput}
+          label="Name"
+          inputtype="input"
           type="text"
           name="Name"
           placeholder="Your Name"
         />
-        <input
+        <Input
           className={classes.Inuput}
+          inputtype="input"
+          label="email"
           type="email"
           name="Email"
           placeholder="example@gmail.com"
         />
-        <input
+        <Input
           className={classes.Inuput}
+          inputtype="input"
+          label="Street"
           type="text"
           name="Street"
           placeholder="Eg:GandhiNagar"
         />
-        <input
+        <Input
           className={classes.Inuput}
+          inputtype="input"
           type="text"
+          label="pincode"
           name="pincode"
           placeholder="Eg:505474"
         />

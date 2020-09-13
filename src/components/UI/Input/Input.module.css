@@ -1,0 +1,9 @@
+.InputCont {
+  width: 100%;
+  display: flex;
+}
+
+.Label {
+  margin: 10px;
+  padding-right: 10px;
+}
