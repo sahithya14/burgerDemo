@@ -6,7 +6,7 @@ const order = (props) => {
   function getIngredients() {
     for (var key in props.ingredients) {
       var temp = (
-        <div key={props.key}>
+        <div key={key}>
           <strong>{key}:</strong>
           {props.ingredients[key]}
         </div>
