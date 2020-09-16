@@ -6,3 +6,7 @@
   border-radius: 10%;
   padding: 10px;
 }
+.Button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

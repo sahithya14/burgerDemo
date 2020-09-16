@@ -20,3 +20,11 @@
   background-color: #ccc;
   margin: 10px 5px 5px;
 }
+.Invalid {
+  background-color: rgb(238, 131, 131);
+  border: 1px solid red;
+}
+.errorMsg {
+  color: red;
+  margin: 5px;
+}

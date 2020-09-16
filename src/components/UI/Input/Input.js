@@ -1,13 +1,23 @@
 import React from "react";
 import classes from "../Input/Input.module.css";
+import Aux from "../../../hoc/Aux";
 
 const Input = (props) => {
   var inputElement = null;
+  const inputClasses = [classes.Inuput];
+  var validationMsg = null;
+  if (!props.isValid && props.shouldValidate && props.touched) {
+    inputClasses.push(classes.Invalid);
+    validationMsg = (
+      <p className={classes.errorMsg}>please enter valid {props.label}</p>
+    );
+  }
+
   switch (props.elementType) {
     case "input":
       inputElement = (
         <input
-          className={classes.Inuput}
+          className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
@@ -17,7 +27,7 @@ const Input = (props) => {
     case "textarea":
       inputElement = (
         <textarea
-          className={classes.Inuput}
+          className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
@@ -27,7 +37,7 @@ const Input = (props) => {
     case "select":
       inputElement = (
         <select
-          className={classes.Inuput}
+          className={inputClasses.join(" ")}
           value={props.value}
           onChange={props.changed}
         >
@@ -45,7 +55,7 @@ const Input = (props) => {
     default:
       inputElement = (
         <input
-          className={classes.Inuput}
+          className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
         />
@@ -53,10 +63,13 @@ const Input = (props) => {
   }
 
   return (
-    <div className={classes.InputCont}>
-      <p className={classes.Label}>{props.label}</p>
-      {inputElement}
-    </div>
+    <Aux>
+      <div className={classes.InputCont}>
+        <p className={classes.Label}>{props.label}</p>
+        {inputElement}
+      </div>
+      {validationMsg}
+    </Aux>
   );
 };
 export default Input;
